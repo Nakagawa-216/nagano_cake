@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   get 'admin' => 'admins/homes#top'
   get 'admin/genres' => 'admins/genres#index', as: 'admin/genres'
   post 'admin/genres' => 'admins/genres#create'
-  resources :genres, only: [:edit, :updete]
+  get 'admin/genres/:id/edit' => 'admins/genres#edit', as: 'edit/admin/genres'
+  patch 'admin/genres/:id/edit' => 'admins/genres#update'
 end
