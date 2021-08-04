@@ -1,1 +1,33 @@
-商品の詳細画面です。
+<h2>商品詳細</h2>
+<%= attachment_image_tag @item, :image, format: 'jpeg', fallback: "no_image.jpg" %>
+
+<div>
+  <span>商品名</span>
+  <span><%= @item.name %></span>
+</div>
+
+<div>
+  <span>商品説明</span>
+  <span><%= @item.introduction %></span>
+</div>
+
+<div>
+  <span>ジャンル</span>
+  <span><%= @item.genre.name %></span>
+</div>
+
+<div>
+  <span>税込価格</span></br>
+  <span>(税抜価格)</span>
+  <span><%= @item.add_tax_price.to_s(:delimited) %> (<%= @item.price.to_s(:delimited) %>) 円</span>
+</div>
+
+
+<span>販売ステータス</span>
+<% if @item.is_active == true %>
+  <span>販売中</span>
+<% else %>
+  <span>販売停止中</span>
+<% end %>
+
+<%= link_to "編集する", edit_admin_item_path(@item) %>
