@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get 'admin/items/new' => 'admins/items#new', as: 'new/admin/items'
   post 'admin/items/new' => 'admins/items#create', as: ''
   get 'admin/items/:id' => 'admins/items#show', as: 'admin/item'
-  get 'admin_items' => 'admins/items#index', as: 'admin/items'
+  get 'admin/items' => 'admins/items#index', as: 'admin/items'
+  get 'admin/items/:id/edit' => 'admins/items#edit', as: 'edit/admin/item'
 end
