@@ -7,4 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Admin.create(email: "a@a", password: "aaaaaa")
-Genre.create(name: "ケーキ")
+
+Customer.create!(
+  email: "t@t",
+  password:"tttttt",
+  last_name:"中川",
+  first_name:"幸",
+  last_name_kana:"ナカガワ",
+  first_name_kana:"コウ",
+  postal_code:"1111111",
+  address:"Tokyo",
+  telephone_number:"08000000000"
+)
