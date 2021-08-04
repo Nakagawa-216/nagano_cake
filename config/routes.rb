@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   get 'admin/items/:id' => 'admins/items#show', as: 'admin/item'
   get 'admin/items' => 'admins/items#index', as: 'admin/items'
   get 'admin/items/:id/edit' => 'admins/items#edit', as: 'edit/admin/item'
+  patch 'admin/items/:id/edit' => 'admins/items#update'
 end
