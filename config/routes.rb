@@ -10,4 +10,8 @@ Rails.application.routes.draw do
   post 'admin/genres' => 'admins/genres#create'
   get 'admin/genres/:id/edit' => 'admins/genres#edit', as: 'edit/admin/genres'
   patch 'admin/genres/:id/edit' => 'admins/genres#update'
+
+  get 'admin/items/new' => 'admins/items#new', as: 'new/admin/items'
+  post 'admin/items/new' => 'admins/items#create', as: ''
+  get 'admin/items/:id' => 'admins/items#show', as: 'admin/item'
 end
