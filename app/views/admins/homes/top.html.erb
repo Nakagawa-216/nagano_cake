@@ -10,7 +10,7 @@
     <% @orders.each do |order| %>
       <tr>
         <td>
-          <%= link_to admin_path do %>
+          <%= link_to admin_order_path(order) do %>
             <%= order.created_at %>
           <% end %>
         </td>
@@ -19,17 +19,7 @@
         </td>
         <td>1</td>
         <td>
-          <% if order.order_status == "payment_waiting" %>
-            <span>入金待ち</span>
-          <% elsif order.order_status == "payment_confirmation" %>
-            <span>入金確認</span>
-          <% elsif order.order_status == "in_production" %>
-            <span>製作中</span>
-          <% elsif order.order_status == "preparing_delivery" %>
-            <span>発送準備中</span>
-          <% else %>
-            <span>発送済み</span>
-          <% end %>
+          <% order.order_status %>
         </td>
       </tr>
     <% end %>
