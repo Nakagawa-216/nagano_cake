@@ -28,4 +28,6 @@ Rails.application.routes.draw do
 
   get 'admin/orders/:id' => 'admins/orders#show', as: 'admin/order'
   patch 'admin/orders/:id' => 'admin/orders#update'
+  
+  get 'about' => 'public/homes#about', as: 'about'
 end
