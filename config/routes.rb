@@ -9,10 +9,6 @@ Rails.application.routes.draw do
   }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  namespace :customer do
-    resource :homes, only: :top, as: :root
-  end
-
   root to: 'customers/homes#top'
 
   get 'admin' => 'admins/homes#top'
