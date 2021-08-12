@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   }
   # ログイン時に使用されるviewファイルを指定
   devise_for :customers, controllers: {
-    sessions: 'customers/sessions',
-    registrations: 'customers/registrations'
+    sessions: 'public/sessions',
+    registrations: 'public/registrations'
   }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root to: 'customers/homes#top'
+  root to: 'public/homes#top'
 
   get 'admin' => 'admins/homes#top'
 
@@ -33,5 +33,7 @@ Rails.application.routes.draw do
   get 'admin/orders/:id' => 'admins/orders#show', as: 'admin/order'
   patch 'admin/orders/:id' => 'admin/orders#update'
 
-  get 'about' => 'customers/homes#about', as: 'about'
+  get 'about' => 'public/homes#about', as: 'about'
+
+  get 'customers/my_page' => 'public/customers#show', as: 'public/customer'
 end
