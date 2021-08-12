@@ -3,11 +3,18 @@ Rails.application.routes.draw do
     sessions: 'admins/sessions'
   }
   # 使用されるviewファイルを指定
-  devise_for :customers, controllers: {
-    sessions: 'public/sessions',
-    registrations: 'public/registrations'
-  }
+  # devise_for :customers, controllers: {
+  #   sessions: 'public/sessions',
+  #   registrations: 'public/registrations'
+  # }
 
+  # devise_for :customer, only: [:registration] do
+  #   get 'customer/sign_up', to: 'public/registrations#new', as: :new_customer_registration
+  #   post 'customers', to: 'public/registrations#create'
+  # end
+
+  devise_for :customers, skip: 'registrations',
+  controllers: { sessions: 'public/sessions', registrations: 'public/registrations' }
   devise_scope :customer do
     get 'customer/sign_up', to: 'public/registrations#new', as: :new_customer_registration
     post 'customers', to: 'public/registrations#create'
@@ -41,7 +48,9 @@ Rails.application.routes.draw do
 
   get 'about' => 'public/homes#about', as: 'about'
 
-  get 'customers/my_page' => 'public/customers#show', as: 'public/customer'
+  get 'customers/my_page' => 'public/customers#show', as: 'mypage'
   get 'customers/edit' => 'public/customers#edit', as: 'edit/customer'
   patch 'customers/edit' => 'public/customers#update'
+  get 'customers/unsubscribe' => 'public/customers#unsubscribe', as: 'unsubscribe'
+  patch 'customer/withdraw' => 'public/customers#withdraw', as: 'withdraw'
 end
