@@ -1,0 +1,47 @@
+<h2>マイページ</h2>
+
+<span>登録情報</span>
+<%= link_to public_customer_path do %>
+  <span>編集する</span>
+<% end %>
+
+<table>
+  <tr>
+    <td>氏名</td>
+    <td>
+      <%= current_customer.last_name %> <%= current_customer.first_name %>
+    </td>
+  </tr>
+  <tr>
+    <td>カナ</td>
+    <td>
+      <%= current_customer.last_name_kana %> <%= current_customer.last_name_kana %>
+    </td>
+  </tr>
+  <tr>
+    <td>郵便番号</td>
+    <td><%= current_customer.postal_code %></td>
+  </tr>
+  <tr>
+    <td>住所</td>
+    <td><%= current_customer.address %></td>
+  </tr>
+  <tr>
+    <td>電話番号</td>
+    <td><%= current_customer.telephone_number %></td>
+  </tr>
+  <tr>
+    <td>メールアドレス</td>
+    <td><%= current_customer.email %></td>
+  </tr>
+</table>
+
+<span>配送先</span>
+<%= link_to public_customer_path do %>
+  <span>一覧を見る</span>
+<% end %>
+
+<span>注文履歴</span>
+<%= link_to public_customer_path do %>
+  <span>一覧を見る</span>
+<% end %>
