@@ -2,11 +2,17 @@ Rails.application.routes.draw do
   devise_for :admins, controllers: {
     sessions: 'admins/sessions'
   }
-  # ログイン時に使用されるviewファイルを指定
+  # 使用されるviewファイルを指定
   devise_for :customers, controllers: {
     sessions: 'public/sessions',
     registrations: 'public/registrations'
   }
+
+  devise_scope :customer do
+    get 'customer/sign_up', to: 'public/registrations#new', as: :new_customer_registration
+    post 'customers', to: 'public/registrations#create'
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root to: 'public/homes#top'
@@ -36,4 +42,6 @@ Rails.application.routes.draw do
   get 'about' => 'public/homes#about', as: 'about'
 
   get 'customers/my_page' => 'public/customers#show', as: 'public/customer'
+  get 'customers/edit' => 'public/customers#edit', as: 'edit/customer'
+  patch 'customers/edit' => 'public/customers#update'
 end
