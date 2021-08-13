@@ -53,4 +53,9 @@ Rails.application.routes.draw do
   patch 'customers/edit' => 'public/customers#update'
   get 'customers/unsubscribe' => 'public/customers#unsubscribe', as: 'unsubscribe'
   patch 'customer/withdraw' => 'public/customers#withdraw', as: 'withdraw'
+
+  get 'addresses' => 'public/addresses#index', as: 'addresses'
+  post 'addresses' => 'public/addresses#create'
+  get 'addresses/:id/edit' => 'public/addresses#edit', as: 'edit/address'
+  delete 'addresses/:id' => 'public/addresses#destroy', as: 'destroy/address'
 end
