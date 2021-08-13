@@ -59,4 +59,7 @@ Rails.application.routes.draw do
   get 'addresses/:id/edit' => 'public/addresses#edit', as: 'edit/address'
   patch 'addresses/:id/edit' => 'public/addresses#update'
   delete 'addresses/:id' => 'public/addresses#destroy', as: 'destroy/address'
+
+  get 'items' => 'public/items#index', as: 'items'
+  get 'items/:id' => 'public/items#show', as: 'item'
 end
