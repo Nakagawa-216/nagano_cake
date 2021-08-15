@@ -1,0 +1,43 @@
+<h2>注文情報入力</h2>
+<%= form_with model:@order, url:new_order_path, local:true do |f| %>
+<h3>支払方法</h3>
+			<span>　　　</span><%= f.radio_button :payment_method, 0, checked: "checked" %>
+	  		<%= f.label :クレジットカード %><br>
+	  		<span>　　　</span><%= f.radio_button :payment_method, 1 %>
+	  		<%= f.label :銀行振込 %>
+
+
+			<h3>お届け先</h3>
+
+			<span>　　　</span><%= f.radio_button :a_method, 0, checked: "checked" %>
+			<%= f.label :ご自身の住所 %><br>
+			<span>　　　　　</span><%= @customer.postal_code %>
+			<%= @customer.address %><br>
+			<span>　　　　　</span><%= @customer.last_name %>
+			<%= @customer.first_name %><br>
+
+
+			<span>　　　</span><%= f.radio_button :a_method, 1 %>
+			<%= f.label :登録済住所から選択 %><br>
+			<!-- collection_select(プロパティ名, オブジェクトの配列, value属性の項目, テキストの項目 [, オプション])-->
+			<span>　　　　　</span><%= f.collection_select(:address_id, @addresses, :id, :shipping_address, prompt: "選択してくしてください") %><br>
+
+
+
+			<span>　　　</span><%= f.radio_button :a_method, 2 %>
+			<%= f.label :新しいお届け先 %><br>
+			<div class="form-group col-xs-12">
+				<%= f.label :"　　　郵便番号(ハイフンなし)", class: "col-xs-3 control-label"  %>
+				<%= f.text_field :postal_code, class: "col-xs-4 form-control-static postal_code" %>
+			</div>
+			<div class="form-group col-xs-12">
+				<%= f.label :"　　　住所", class: "col-xs-3 control-label" %>
+				<%= f.text_field :address, class: "col-xs-7 form-control-static address" %>
+			</div>
+			<div class="form-group col-xs-12">
+				<%= f.label :"　　　宛名", class: "col-xs-3 control-label" %>
+				<%= f.text_field :name, class: "col-xs-4 form-control-static name"%>
+			</div>
+
+	   		<%= f.submit "確認画面へ進む", class: 'btn btn-warning col-xs-6 col-xs-offset-1'%>
+<% end %>
