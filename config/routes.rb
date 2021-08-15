@@ -68,4 +68,6 @@ Rails.application.routes.draw do
   delete 'cart_items/:id' => 'public/cart_items#destroy', as: 'destroy/cart_item'
   patch 'cart_items/:id' => 'public/cart_items#update', as: 'update/cart_item'
   delete 'cart_items' => 'public/cart_items#destroy_all', as: 'destroy_all/cart_item'
+
+  get 'orders/new' => 'public/orders#new', as: 'new/order'
 end
