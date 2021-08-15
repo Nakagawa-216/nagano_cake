@@ -19,7 +19,7 @@
       <% elsif customer_signed_in? %>
         <%= link_to "マイページ", mypage_path %>
         <%= link_to "商品一覧", items_path %>
-        <%= link_to "注文履歴一覧", admin_path %>
+        <%= link_to "カート", cart_items_path %>
         <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
       <% else %>
         <%= link_to "About", about_path %>

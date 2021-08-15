@@ -4,7 +4,7 @@
 <%= @item.introduction %>
 <%= @item.add_tax_price.to_s(:delimited) %>(税込み)
 
-<%= form_with model: @cart_item, url: item_path, local:true do |f| %>
-  <%= f.select :amount, [1,2,3,4,5,6,7,8,9,10] %>
+<%= form_with model:@cart_item, url:cart_item_path(item_id: @item), local:true do |f| %>
+  <%= f.select :amount,[['1個', 1], ['2個', 2], ['3個', 3], ['4個', 4], ['5個', 5], ['6個', 6], ['7個', 7], ['8個', 8], ['9個', 9]] %>
   <%= f.submit "カートに入れる" %>
 <% end %>
