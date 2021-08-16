@@ -27,7 +27,11 @@
   <tr>
     <th>支払方法</th>
     <td>
-    <%= @order.payment_method %>
+      <% if @order.payment_method == "credit_card" %>
+        クレジットカード
+      <% else %>
+        銀行振込
+      <% end %>
     </td>
   </tr>
   <tr>
@@ -46,18 +50,15 @@
     <th>単価(税込み)</th>
     <th>数量</th>
     <th>小計</th>
-    <th>制作ステータス</th>
   </thead>
   <tbody>
-    <% @order.order_items.each do |item| %>
-      <%= form_with model:@order.order_item, url:admin_order_path, local:true do |f| %>
+    <% @order_items.each do |i| %>
+      <%= form_with model:@order.order_items, url:admin_order_path, local:true do |f| %>
         <tr>
-          <td><%= item.name %></td>
-          <td><%= add_tax_price(item.price) %></td>
-          <td><%= item.amount %></td>
-          <td><%= add_tax_price(item) * item.amount %></td>
-          <td><%= f.select :f.product_status, [["着手不可", 0], ["製作待ち", 1], ["製作中", 2], ["製作完了", 3]] %></td>
-          <%= f.submit '更新' %>
+          <td><%= i.item.name %></td>
+          <td><%= (i.item.price * 1.1).floor.to_s(:delimited, delimiter: ',') %></td>
+          <td><%= i.amount %></td>
+          <td><%= ((i.item.price * 1.1).floor * i.amount).to_s(:delimited, delimiter: ',') %></td>
         </tr>
       <% end %>
     <% end %>
