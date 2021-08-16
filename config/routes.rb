@@ -73,4 +73,6 @@ Rails.application.routes.draw do
   post 'orders/confirm' => 'public/orders#confirm', as: 'confirm/order'
   post 'orders' => 'public/orders#create', as: 'complete/order'
   get 'orders/complete' => 'public/orders#complete', as: 'thanks'
+  get 'orders' => 'public/orders#index', as: 'orders'
+  get 'orders/:id' => 'public/orders#show', as: 'order'
 end
