@@ -70,4 +70,7 @@ Rails.application.routes.draw do
   delete 'cart_items' => 'public/cart_items#destroy_all', as: 'destroy_all/cart_item'
 
   get 'orders/new' => 'public/orders#new', as: 'new/order'
+  post 'orders/confirm' => 'public/orders#confirm', as: 'confirm/order'
+  post 'orders' => 'public/orders#create', as: 'complete/order'
+  get 'orders/complete' => 'public/orders#complete', as: 'thanks'
 end
