@@ -1,10 +1,21 @@
-<h2>商品一覧</h2>
+<div class="container">
+  <div class="row mt-5">
+    <h2>商品一覧<span class="small">(全<%= @items.count %>件)</span></h2>
+  </div>
+  <div class="row mt-4">
+    <% @items.each do |item| %>
+      <div class="col-sm-3">
+      <%= link_to item_path(item.id), style: "color: black;" do %>
+        <%= attachment_image_tag item, :image, :fill, 200, 150, format: 'jpeg', fallback: "no_image.jpg" %></br>
+        <%= item.name %></br>
+        ￥<%= item.add_tax_price.to_s(:delimited, delimiter: ',') %>
+      <% end %>
+      </div>
+    <% end %>
+    <div style="text-align: center;"><%= paginate @items %></div>
+  </div>
+</div>
 
-<% @items.each do |item| %>
-  <%= link_to item_path(item.id) do %>
-    <%= attachment_image_tag item, :image, style:"width:100%; bottom: 45px;" %>
-  <% end %>
-  <%= item.name %>
-  <%= item.add_tax_price.to_s(:delimited) %>円
-<% end %>
+
+
 

@@ -1,66 +1,89 @@
-<h2>注文履歴詳細</h2>
-<table>
-  <tr>
-    <th>購入者</th>
-    <td>
-      <%= link_to admin_customer_path(@order.customer_id) do %>
+<div class="container">
+  <div class="row">
+    <div class="col m-4"><h2>注文履歴詳細</h2></div>
+  </div>
+  <div class="row">
+    <div class="col-2"><span>購入者</span></div>
+    <div class="col-8">
+      <%= link_to admin_customer_path(@order.customer_id), style: 'color: black; text-decoration: underline;' do %>
         <%= @order.customer.last_name %>
         <%= @order.customer.first_name %>
       <% end %>
-    </td>
-  </tr>
-  <tr>
-    <th>注文日</th>
-    <td>
-      <%= @order.created_at.strftime('%Y/%m/%d') %>
-    </td>
-  </tr>
-  <tr>
-    <th>配送先</th>
-    <td>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2"><span>注文日</span></div>
+    <div class="col-8"><%= @order.created_at.strftime('%Y/%m/%d') %></div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2"><span>配送先</span></div>
+    <div class="col-8">
       〒<%= @order.postal_code.insert(3, "-") %>
       <%= @order.address %>
       <br>
       <%= @order.name %>
-    </td>
-  </tr>
-  <tr>
-    <th>支払方法</th>
-    <td>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2"><span>支払方法</span></div>
+    <div class="col-8">
       <% if @order.payment_method == "credit_card" %>
         クレジットカード
       <% else %>
         銀行振込
       <% end %>
-    </td>
-  </tr>
-  <tr>
-    <th>注文ステータス</th>
-    <td>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2"><span>注文ステータス</span></div>
+    <div class="col-8">
       <%= form_with model:@order, url:admin_order_path, local:true do |f| %>
-        <%= f.select :order_status, [["入金待ち", 0], ["入金確認", 1], ["製作中", 2], ["発送準備中", 3], ["発送済み", 4]] %>
-        <%= f.submit '更新' %>
+        <%= f.select :order_status, [["入金待ち", "payment_waiting"], ["入金確認", "payment_confirm"], ["製作中", "in_production"], ["発送準備中", "preparing_delivery"], ["発送済み", "delivered"]] %>
+        <%= f.submit '更新', class: 'btn btn-success btn-sm' %>
       <% end %>
-    </td>
-  </tr>
-</table>
-<table>
-  <thead>
-    <th>商品名</th>
-    <th>単価(税込み)</th>
-    <th>数量</th>
-    <th>小計</th>
-  </thead>
-  <tbody>
-    <% @order_items.each do |i| %>
-      <%= form_with model:@order.order_items, url:admin_order_path, local:true do |f| %>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-8">
+      <table class="table table-border-bottom">
+        <thead class="table-active">
+          <th class="col-4">商品名</th>
+          <th class="col-2">単価(税込み)</th>
+          <th class="col-2">数量</th>
+          <th class="col-2">小計</th>
+        </thead>
+        <tbody>
+          <% @order_items.each do |i| %>
+            <%= form_with model:@order.order_items, url:admin_order_path, local:true do |f| %>
+              <tr>
+                <td><%= i.item.name %></td>
+                <td><%= (i.item.price * 1.1).floor.to_s(:delimited, delimiter: ',') %></td>
+                <td><%= i.amount %></td>
+                <td><%= ((i.item.price * 1.1).floor * i.amount).to_s(:delimited, delimiter: ',') %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4 d-flex align-items-end flex-row-reverse">
+      <table>
+        <tr></tr>
         <tr>
-          <td><%= i.item.name %></td>
-          <td><%= (i.item.price * 1.1).floor.to_s(:delimited, delimiter: ',') %></td>
-          <td><%= i.amount %></td>
-          <td><%= ((i.item.price * 1.1).floor * i.amount).to_s(:delimited, delimiter: ',') %></td>
+          <th class="col-6"><strong>商品合計</strong></th>
+          <td class="col-4">
+            <%= (@order.amount_of_payment - @order.postage).to_s(:delimited, delimiter: ',') %>円
+          </td>
         </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+        <tr>
+          <th class="col-6"><strong>送料</strong></th>
+          <td class="col-4"><%= @order.postage.to_s(:delimited, delimiter: ',') %>円</td>
+        </tr>
+        <tr>
+          <th class="col-6"><strong>請求合計金額</strong></th>
+          <td class="col-4"><%= @order.amount_of_payment.to_s(:delimited, delimiter: ',') %>円</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 class Public::OrdersController < ApplicationController
+  before_action :authenticate_customer!
+
   def new
     @order = Order.new
     @customer = current_customer
@@ -6,17 +8,24 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-    # params[:order][:select_address]
+    if params[:order][:select_address] == "0"
+      @order = Order.new(order_params)
+      @order.postal_code = current_customer.postal_code
+      @order.address = current_customer.address
+      @order.name = current_customer.first_name + current_customer.last_name
+
+    elsif params[:order][:select_address] == "1"
+      @order = Order.new(order_params)
+      @address = Address.find(params[:order][:address_id])
+      @order.postal_code = @address.postal_code
+      @order.address = @address.address
+      @order.name = @address.name
+    else
+      @order = Order.new(order_params)
+    end
+
     @cart_items = current_customer.cart_items
-
-    @order = Order.new(order_params)
-    @address = Address.find(params[:order][:address_id])
-    @order.postal_code = @address.postal_code
-    @order.address = @address.address
-    @order.name = @address.name
-
     @order.postage = 800
-
     @sum = 0
     @cart_items.each do |cart_item|
       @sum += (cart_item.item.price * 1.1).floor * cart_item.amount
@@ -25,7 +34,7 @@ class Public::OrdersController < ApplicationController
 
   def complete
   end
-
+# binding.pry
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
@@ -39,7 +48,7 @@ class Public::OrdersController < ApplicationController
       @order_items.amount = c.amount
       @order_items.tax_price = (c.item.price * 1.1).floor
       @order_items.save
-      redirect_to thanks_path
+      # redirect_to thanks_path
     end
 
     cart_items.destroy_all
@@ -52,7 +61,7 @@ class Public::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    
+
   end
 
   private

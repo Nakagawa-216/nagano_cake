@@ -4,30 +4,57 @@
     <title>NaganoCake</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/aa65bb7c2f.js" crossorigin="anonymous"></script>
   </head>
+
   <body>
-    <header>
-      <% if admin_signed_in? %>
-        <%= link_to "商品一覧", admin_items_path %>
-        <%= link_to "会員一覧", admin_customers_path %>
-        <%= link_to "注文履歴一覧", admin_path %>
-        <%= link_to "ジャンル一覧", admin_genres_path %>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-      <% elsif customer_signed_in? %>
-        <%= link_to "マイページ", mypage_path %>
-        <%= link_to "商品一覧", items_path %>
-        <%= link_to "カート", cart_items_path %>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "About", about_path %>
-        <%= link_to "商品一覧", admin_path %>
-        <%= link_to "新規登録", new_customer_registration_path %>
-        <%= link_to "ログイン", new_customer_session_path %>
-      <% end %>
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand" href="/"><%= image_tag 'logo.png', :size =>'80x80' %></a>
+          <ul class="navbar-nav ml-auto">
+          <!--adminログイン-->
+          <% if admin_signed_in? %>
+            <li class="nav-item"><%= link_to "商品一覧", admin_items_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "会員一覧", admin_customers_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "注文履歴一覧", admin_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "ジャンル一覧", admin_genres_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' %></li>
+          <!--会員ログイン-->
+          <% elsif customer_signed_in? %>
+            <li class="nav-item"><%= link_to "マイページ", mypage_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "商品一覧", items_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "カート", cart_items_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' %></li>
+          <!--ログインなし-->
+          <% else %>
+            <li class="nav-item"><%= link_to "About", about_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "商品一覧", items_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "新規登録", new_customer_registration_path, class: 'nav-link text-dark' %></li>
+            <li class="nav-item"><%= link_to "ログイン", new_customer_session_path, class: 'nav-link text-dark' %></li>
+          <% end %>
+          </ul>
+        </div>
+      </nav>
     </header>
+    <div class="container">
+    <% if flash[:notice] %>
+      <p id="notice">
+        <%= flash[:notice] %>
+      </p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p id="alert">
+        <%= flash[:alert] %>
+      </p>
+    <% end %>
+    </div>
     <%= yield %>
+    <footer>
+    </footer>
   </body>
 </html>

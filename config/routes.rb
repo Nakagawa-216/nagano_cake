@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   controllers: { sessions: 'public/sessions', registrations: 'public/registrations' }
   devise_scope :customer do
     get 'customer/sign_up', to: 'public/registrations#new', as: :new_customer_registration
-    post 'customers', to: 'public/registrations#create'
+    post 'customers', to: 'public/registrations#create', as: :customer_registration
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   patch 'admin/customers/:id/edit' => 'admins/customers#update'
 
   get 'admin/orders/:id' => 'admins/orders#show', as: 'admin/order'
-  patch 'admin/orders/:id' => 'admin/orders#update'
+  patch 'admin/orders/:id' => 'admins/orders#update'
 
   get 'about' => 'public/homes#about', as: 'about'
 

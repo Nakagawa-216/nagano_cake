@@ -1,4 +1,6 @@
 class Admins::CustomersController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @customers = Customer.page(params[:page])
   end
@@ -13,8 +15,13 @@ class Admins::CustomersController < ApplicationController
 
   def update
     customer = Customer.find(params[:id])
-    customer.update(customer_params)
-    redirect_to admin_customer_path(customer.id)
+    if customer.update(customer_params)
+      redirect_to admin_customer_path(customer.id)
+    else
+      flash.now[:alert] = "必要事項を入力してください"
+      @customer = Customer.find(params[:id])
+      render :edit
+    end
   end
 
   private
