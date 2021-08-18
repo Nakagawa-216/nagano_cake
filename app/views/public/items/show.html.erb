@@ -1,10 +1,32 @@
-<%= attachment_image_tag @item, :image %>
-
-<%= @item.name %>
-<%= @item.introduction %>
-<%= @item.add_tax_price.to_s(:delimited) %>(税込み)
-
+<div class="container">
 <%= form_with model:@cart_item, url:cart_item_path(item_id: @item), local:true do |f| %>
-  <%= f.select :amount,[['1個', 1], ['2個', 2], ['3個', 3], ['4個', 4], ['5個', 5], ['6個', 6], ['7個', 7], ['8個', 8], ['9個', 9]] %>
-  <%= f.submit "カートに入れる" %>
+  <div class="row mt-5">
+    <div class="col-6 text-center">
+      <%= attachment_image_tag @item, :image, :fill, 300, 250, format: 'jpeg' %>
+    </div>
+    <div class="col-6">
+      <div class="row mb-3">
+        <div class="col"><h4><%= @item.name %></h4></div>
+      </div>
+      <div class="row mb-4">
+        <div class="col"><%= @item.introduction %></div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">￥<%= @item.add_tax_price.to_s(:delimited, delimiter: ',') %> (税込)</div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <%= f.select :amount,[['1個', 1], ['2個', 2], ['3個', 3], ['4個', 4], ['5個', 5], ['6個', 6], ['7個', 7], ['8個', 8], ['9個', 9]], {:prompt => "個数選択"} %>
+        </div>
+        <div class="col-6"><%= f.submit "カートに入れる", class: "btn btn-success btn-sm ml-5" %></div>
+      </div>
+    </div>
+  </div>
+  <%= f.hidden_field :item_id, :value => @item.id %>
 <% end %>
+</div>
+
+
+
+
+

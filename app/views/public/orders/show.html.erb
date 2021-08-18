@@ -1,66 +1,85 @@
-<h2>注文履歴詳細</h2>
-<h3>注文情報</h3>
-<table>
-  <tbody>
-    <tr>
-      <th>注文日</th>
-      <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
-    </tr>
-    <tr>
-      <th>配送先</th>
-      <td>
-        〒<%= @order.postal_code %></br>
-        <%= @order.address %></br>
-        <%= @order.name %>
-      </td>
-    </tr>
-    <tr>
-      <th>支払方法</th>
-      <td>
-        <% if @order.payment_method == "credit_card" %>
-          クレジットカード
-        <% else %>
-          銀行振込
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<h3>請求情報</h3>
-<table>
-  <tbody>
-    <tr>
-      <th>商品合計</th>
-      <td><%= (@order.amount_of_payment - @order.postage).to_s(:delimited, delimiter: ',') %></td>
-    </tr>
-    <tr>
-      <th>配送料</th>
-      <td><%= @order.postage.to_s(:delimited, delimiter: ',') %></td>
-    </tr>
-    <tr>
-      <th>ご請求額</th>
-      <td><%= @order.amount_of_payment.to_s(:delimited, delimiter: ',') %></td>
-    </tr>
-  </tbody>
-</table>
-<h3>注文内容</h3>
-<table>
-  <thead>
-    <tr>
-      <th>商品</th>
-      <th>単価(税込)</th>
-      <th>個数</th>
-      <th>小計</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @order.order_items.each do |i| %>
-      <tr>
-        <td><%= i.item.name %></td>
-        <td><%= (i.item.price * 1.1).floor.to_s(:delimited, delimiter: ',') %></td>
-        <td><%= i.amount %></td>
-        <td><%= (((i.item.price * 1.1).floor) * i.amount).to_s(:delimited, delimiter: ',') %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col m-4"><h2>注文履歴詳細</h2></div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4>注文情報</h4>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th class="table-active">注文日</th>
+            <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+          </tr>
+          <tr>
+            <th class="table-active">配送先</th>
+            <td>
+              〒<%= @order.postal_code %></br>
+              <%= @order.address %></br>
+              <%= @order.name %>
+            </td>
+          </tr>
+          <tr>
+            <th class="table-active">支払方法</th>
+            <td>
+              <% if @order.payment_method == "credit_card" %>
+                クレジットカード
+              <% else %>
+                銀行振込
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4">
+      <h4>請求情報</h4>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th class="table-active">商品合計</th>
+            <td><%= (@order.amount_of_payment - @order.postage).to_s(:delimited, delimiter: ',') %></td>
+          </tr>
+          <tr>
+            <th class="table-active">配送料</th>
+            <td><%= @order.postage.to_s(:delimited, delimiter: ',') %></td>
+          </tr>
+          <tr>
+            <th class="table-active">ご請求額</th>
+            <td><%= @order.amount_of_payment.to_s(:delimited, delimiter: ',') %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <h4>注文内容</h4>
+      <table class="table table-bordered">
+        <thead class="table-active">
+          <tr>
+            <th class="col-4">商品</th>
+            <th class="col-2">単価(税込)</th>
+            <th class="col-1">個数</th>
+            <th class="col-1">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_items.each do |i| %>
+            <tr>
+              <td><%= i.item.name %></td>
+              <td><%= (i.item.price * 1.1).floor.to_s(:delimited, delimiter: ',') %></td>
+              <td><%= i.amount %></td>
+              <td><%= (((i.item.price * 1.1).floor) * i.amount).to_s(:delimited, delimiter: ',') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+

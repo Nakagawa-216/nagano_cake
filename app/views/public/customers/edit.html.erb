@@ -1,43 +1,38 @@
-<h2>会員情報編集</h2>
-
+<div class="container">
 <%= form_with model:@customer, url: edit_customer_path, local:true do |f| %>
-<div class="field">
-  <%= f.label :last_name, "氏名" %>
-  <%= f.text_field :last_name, autocomplete: "last_name" %>
-  <%= f.text_field :first_name, autocomplete: "first_name" %>
-</div>
-
-<div class="field">
-  <%= f.label :last_name_kana, "フリガナ" %>
-  <%= f.text_field :last_name_kana, autocomplete: "last_name" %>
-  <%= f.text_field :first_name_kana, autocomplete: "first_name" %>
-</div>
-
-<div class="field">
-  <%= f.label :postal_code, "郵便番号" %>
-  <%= f.text_field :postal_code, autocomplete: "postal_code" %>
-</div>
-
-<div class="field">
-  <%= f.label :address, "住所" %>
-  <%= f.text_field :address, autocomplete: "address" %>
-</div>
-
-<div class="field">
-  <%= f.label :telephone_number, "電話番号" %>
-  <%= f.text_field :telephone_number, autocomplete: "last_name" %>
-</div>
-
-<div class="field">
-<%= f.label :email, "メールアドレス" %>
-<%= f.email_field :email, autocomplete: "email" %>
-</div>
-
-<div class="actions">
-  <%= f.submit "変更内容を保存" %>
-  <%= link_to unsubscribe_path do %>
-    退会する
-  <% end %>
-</div>
-
+  <div class="row">
+    <div class="col m-4"><h2>会員情報編集</h2></div>
+  </div>
+  <div class="row">
+    <div class="col-3"><%= f.label :last_name, "氏名" %></div>
+    <div class="col-3"><%= f.text_field :last_name, autocomplete: "last_name" %></div>
+    <div class="col-3"><%= f.text_field :first_name, autocomplete: "first_name" %></div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3"><%= f.label :last_name_kana, "フリガナ" %></div>
+    <div class="col-3"><%= f.text_field :last_name_kana, autocomplete: "last_name" %></div>
+    <div class="col-3"><%= f.text_field :first_name_kana, autocomplete: "first_name" %></div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3"><%= f.label :postal_code, "郵便番号" %></div>
+    <div class="col-3"><%= f.text_field :postal_code, autocomplete: "postal_code" %></div>
+  </div>
+    <div class="row mt-2">
+    <div class="col-3"><%= f.label :address, "住所" %></div>
+    <div class="col-3"><%= f.text_field :address, autocomplete: "address", size: "60" %></div>
+  </div>
+    <div class="row mt-2">
+    <div class="col-3"><%= f.label :telephone_number, "電話番号" %></div>
+    <div class="col-3"><%= f.text_field :telephone_number, autocomplete: "last_name" %></div>
+  </div>
+    <div class="row mt-2">
+    <div class="col-3"><%= f.label :email, "メールアドレス" %></div>
+    <div class="col-3"><%= f.email_field :email, autocomplete: "email" %></div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-3"></div>
+    <div class="col-3"><%= f.submit "変更内容を保存", class: "btn btn-success btn-sm" %></div>
+    <div class="col-3"><%= link_to "退会する", unsubscribe_path, class: "btn btn-danger btn-sm float-right" %></div>
+  </div>
 <% end %>
+</div>
