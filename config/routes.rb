@@ -3,15 +3,15 @@ Rails.application.routes.draw do
     sessions: 'admins/sessions'
   }
   # 使用されるviewファイルを指定
-  # devise_for :customers, controllers: {
-  #   sessions: 'public/sessions',
-  #   registrations: 'public/registrations'
-  # }
+  devise_for :customers, controllers: {
+    sessions: 'public/sessions',
+    registrations: 'public/registrations'
+  }
 
-  # devise_for :customer, only: [:registration] do
-  #   get 'customer/sign_up', to: 'public/registrations#new', as: :new_customer_registration
-  #   post 'customers', to: 'public/registrations#create'
-  # end
+  devise_for :customer, only: [:registration] do
+    get 'customer/sign_up', to: 'public/registrations#new', as: :new_customer_registration
+    post 'customers', to: 'public/registrations#create'
+  end
 
   devise_for :customers, skip: 'registrations',
   controllers: { sessions: 'public/sessions', registrations: 'public/registrations' }
