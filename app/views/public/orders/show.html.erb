@@ -29,6 +29,22 @@
               <% end %>
             </td>
           </tr>
+          <tr>
+            <th class="table-active">注文ステータス</th>
+            <td>
+              <% if @order.order_status == "payment_waiting" then %>
+                入金待ち
+              <% elsif @order.order_status == "payment_confirm" then %>
+                入金確認
+              <% elsif @order.order_status == "in_production" then %>
+                製作中
+              <% elsif @order.order_status == "preparing_delivery" then %>
+                発送準備中
+              <% else %>
+                発送済み
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
